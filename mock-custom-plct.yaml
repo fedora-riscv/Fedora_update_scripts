@@ -1,0 +1,12 @@
+download:
+  - source ../../mock-custom-env.sh; echo 'Download sources repo';
+    [ -d $PKG ] || git clone $SRC_REPO_BASE_URL/$PKG.git
+before_build:
+  - source ../../mock-custom-env.sh;mock -r $MOCK_CHROOT_CFG --scrub=all
+build:
+  - source ../../mock-custom-env.sh;git checkout $PKG_REPO_BRANCH; fedpkg sources
+  - source ../../mock-custom-env.sh;mock -r $MOCK_CHROOT_CFG -n --nocheck --spec=$PWD/$PKG.spec --source=$PWD
+  - source ../../mock-custom-env.sh;mv -vf /var/lib/mock/$MOCK_CHROOT_CFG/result/*.src.rpm $REPO_SRPM_PATH
+  - source ../../mock-custom-env.sh;mv -vf /var/lib/mock/$MOCK_CHROOT_CFG/result/*.rpm $REPO_RPM_PATH
+  - source ../../mock-custom-env.sh;createrepo -v --update $REPO_SRPM_PATH
+  - source ../../mock-custom-env.sh;createrepo -v --update $REPO_RPM_PATH

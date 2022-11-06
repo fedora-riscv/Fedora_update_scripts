@@ -1,0 +1,851 @@
+python311:
+  packages:
+    # bump package version and set macros version to new python
+    - python-rpm-macros
+    - python3.11:
+        macros:
+          _with_bootstrap: 1
+          _without_rpmwheels: 1
+          _without_tests: 1
+          _without_optimizations: 1
+    # - gdb: # not blocking
+        # macros:
+        #  _without_python: 1
+    - python-setuptools: # bump release
+        macros:
+          _with_bootstrap: 1
+          _without_tests: 1
+          _without_main_python: 1
+    - python-railroad-diagrams
+    - pyparsing: # bump release
+        macros:
+          _with_bootstrap: 1
+          build_wheel: 1
+    - python-packaging: # bump release
+        macros:
+          _with_bootstrap: 1
+          _without_tests: 1
+          _without_docs: 1
+    - python-wheel: # bump release
+        macros:
+          _with_bootstrap: 1
+    - python-pip:
+        macros:
+          _without_tests: 1
+          _without_doc: 1
+    - python-setuptools:
+        macros:
+          _without_tests: 1
+    - python3.11: # wait for gdb
+        macros:
+          _without_tests: 1
+
+    # blocking point. do not jump ahead, or the pkgs won't have automatic requires (not even on python(abi))
+    # DELETE the first python3.10 build if the second is not bumped
+
+    # VERIFY: in Koji do scratch build on the next package
+    # in COPR just build it, check if provides python3dist() and python3.10dist()
+    # eg. Provides: dblatex = 0.3.12-2.fc35 python3.10dist(dblatex) = 0.3.12 python3dist(dblatex) = 0.3.12
+
+    - dblatex
+    - python-six:
+        macros:
+          _without_tests: 1
+    - python-toml:
+        macros:
+          _without_tests: 1
+    - python-setuptools_scm:
+        macros:
+          _without_tests: 1
+    - python-py:
+        macros:
+          _without_tests: 1
+          _without_docs: 1
+    - python-iniparse
+    - python-chardet:
+        macros:
+          _without_tests: 1
+    - python-pbr:
+        macros:
+           _with_bootstrap: 1
+    - python-mock:
+        macros:
+          _without_tests: 1
+    - python-mimeparse
+    - python-extras:
+        macros:
+          _without_check: 1
+    - python-coverage
+    - python-nose
+    - python-attrs:
+        macros:
+          _without_tests: 1
+    - python-pluggy:
+        macros:
+          _without_tests: 1
+    - python-sortedcontainers:
+        macros:
+          _without_tests: 1
+          _without_docs: 1
+    - python-hypothesis:
+        macros:
+          _without_tests: 1
+          _without_doc: 1
+    - python-decorator
+    - python-markupsafe
+    - python-pysocks:
+        replaced_macros:
+         with_python3_tests: 0
+    - python-pygments:
+       macros:
+          _without_docs: 1
+          _without_tests: 1
+    # - python-snowballstemmer # dead at fedora 37
+    - python-tox
+    - python-tox-current-env
+    - python-filelock: # https://src.fedoraproject.org/rpms/python-filelock/pull-request/2
+        macros:
+          _without_docs: 1
+    # - python-elementpath:  # not blocking
+    #    macros:
+    #      _without_tests: 1
+    - python-iniconfig:
+        macros:
+          _without_tests: 1
+    - python-distlib
+    - python-appdirs
+    - python-virtualenv:
+        macros:
+          _without_tests: 1
+    - Cython:
+        macros:
+          _without_tests: 1
+    - python-lxml
+    - python-xmlschema
+    - python-colorama
+    - python-more-itertools:
+        macros:
+         _without_tests: 1
+    - python-atomicwrites:
+        macros:
+          _without_docs: 1
+          _without_tests: 1
+    - python-testtools:
+        macros:
+         _without_tests: 1
+         _without_docs: 1
+    - python-fixtures:
+        macros:
+          _without_tests: 1
+    - python-testscenarios
+    - python-fixtures  # with tests FAILED https://bugzilla.redhat.com/show_bug.cgi?id=1787753
+    - python-wcwidth:
+        macros:
+          _without_tests: 1
+    - pytest:
+        macros:
+          _without_timeout: 1
+          _without_tests: 1
+          _without_docs: 1
+    - python-click
+    - python-wheel
+    - python-mock
+    - python-chardet
+    - python-pluggy
+    - pytz
+    - babel: # bump release
+        macros:
+         _with_bootstrap: 1
+    - python-imagesize
+    - python-docutils
+    - python-jinja2:
+        macros:
+          _without_docs: 1
+    - python-process-tests
+    - python-pretend
+    - python-sphinx_rtd_theme: # bump release
+        macros:
+          _with_bootstrap: 1
+    - python-sphinx-theme-alabaster
+    - python-idna
+    - python-urllib3:
+        macros:
+          _without_tests: 1
+    - python-requests:
+        macros:
+          _without_tests: 1
+    - python-sphinxcontrib-applehelp:
+        macros:
+          _without_check: 1
+    - python-sphinxcontrib-devhelp:
+        macros:
+          _without_check: 1
+    - python-sphinxcontrib-htmlhelp:
+        macros:
+          _without_check: 1
+    - python-sphinxcontrib-jsmath:
+        macros:
+          _without_check: 1
+    - python-sphinxcontrib-qthelp:
+        macros:
+          _without_check: 1
+    - python-sphinxcontrib-serializinghtml:
+        macros:
+          _without_check: 1
+    - python-sphinx:
+        macros:
+          _without_websupport: 1
+          _without_tests: 1
+    - pyparsing
+    - python-whoosh
+    - python-sphinxcontrib-trio
+    # - python-atomicwrites # docsfull and testfull, not blocking
+    # - python-pygments # docsfull, testfull, not blocking
+    # - python-testtools: # docsfull and testfull, not blocking
+    #    macros:
+    #      _without_tests: 1
+    # - python-nose-cov # dead in fedora 37
+    - python-cov-core
+    - python-nose2 # local patch
+    - python-parameterized
+    # double commented to keep it out of koji,
+    # but preserve it here for the future
+    - pyxattr:
+        macros:
+          _without_tests: 1 # this bcond is not in dist git
+    - pyxattr  # tests fail in copr (Operation not supported), commented out
+    - python-mako
+    - python-pytest-runner
+    - python-parso # one test is failing due to error in pytest, https://pastebin.com/kZ0GpBFG
+    - python-jedi:
+        macros:
+          _without_tests: 1
+    - PyYAML
+    - python-tidy
+    - python-markdown
+    - python-anytree
+    - asciidoc
+    - python-more-itertools
+    - automake
+    - rpm
+    # - unbound #skipped
+    - pycairo
+    # - Cython  # testfull, not blocking (SKIPed)
+
+    - python-dateutil:
+        macros:
+          _without_tests: 1
+    - python-sure
+    - python-freezegun
+    - python-itsdangerous
+    - python-iso8601
+    - python-pytest-subtests
+    - python-semantic_version
+    - rust-packaging
+    - python-tqdm
+    - python-setuptools-rust
+    - python-apipkg
+    - python-execnet
+    - python-pytest-forked
+    - python-psutil
+    - python-pytest-xdist
+    - python-ply
+    - python-pycparser
+    - python-cffi
+    - python-cryptography
+    - python-ptyprocess
+    - python-pexpect
+    - python-cpuinfo
+    - python-pytest-benchmark
+    - python-sphinx-theme-py3doc-enhanced
+    - python-fields
+    - python-pytest-cov
+    - python-pytest-timeout
+    - python-greenlet
+    - python-waitress
+    - python-requests-unixsocket
+    - python-sphinx-issues
+    - python-Pallets-Sphinx-Themes
+    - python-sphinxcontrib-log-cabinet
+    - python-werkzeug #without tests
+    - python-flask
+    - gpgme
+    - librepo
+    - libdnf  # python3-hawkey
+    - libcomps
+
+    - meson  # check disabled by default, if not, without check build needed before pygobject3
+    # - babel # not blocking
+    # - python-dateutil # not blocking
+    - python-configobj
+    - python-bottle
+    - python-tornado
+    - python-jsonpointer
+    - python-jsonpatch
+    - python-jsonschema:
+        macros:
+          _without_tests: 1
+    - ninja-build
+    - gobject-introspection
+    - pygobject3
+    - python-pycurl
+
+    - python-blinker
+    - python-asn1crypto
+    - python-prettytable
+    - pyserial
+    - libselinux
+    - policycoreutils
+    - pykickstart
+    - python-pyudev
+    - libbytesize
+    - python-blivet
+    - python-requests-ftp
+    - libpwquality
+    - python-pydbus
+    - python-ntplib
+    - python-wrapt
+    - python-lazy-object-proxy
+    - python-webencodings
+    - python-ordered-set
+    - python-requests-file
+    - python-pid
+    - python-polib
+    - python-argcomplete
+    - python-u-msgpack-python
+    - python-pytest-expect
+    # - python-sqlalchemy: # skipped
+    #    macros:
+    #      _without_xdist: 1
+    - python-sphinxcontrib-websupport:
+        macros:
+          _without_tests: 1
+    - python-genshi # disabled failing tests https://pastebin.com/r5g78weR
+    - python-html5lib
+    - python-sphinx # disabled failing tests https://pastebin.com/Wba12fEB
+    # - python-sphinxcontrib-applehelp # all of those are not blocking:
+    - python-sphinxcontrib-devhelp
+    - python-sphinxcontrib-htmlhelp
+    - python-sphinxcontrib-jsmath
+    - python-sphinxcontrib-qthelp
+    - python-sphinxcontrib-serializinghtml
+    - python-sphinxcontrib-httpdomain # to here
+    - python-jwt
+    - python-oauthlib
+    - pyparted
+    - libblockdev
+    - python-systemd
+
+    # docs rebuilds, not blocking:
+    # - python-packaging
+
+    # testfull rebuilds, not blocking:
+    # - python-py
+    # - python-six
+
+    - python-redis
+    - python-bcrypt
+    - python-olefile
+    - pyOpenSSL
+
+    - python-isodate
+    - python-rdflib
+    - python-selenium
+    - python-incremental
+    - mercurial
+    # - python-setuptools_scm  # tesfull, not blocking
+    - python-sqlparse  # needs python3-pytest-cov but tests are disabled by default
+    - sip
+    - python-humanize
+    - python-augeas
+    - python-memcached
+    - fros
+    - python-kerberos
+    - python-editor
+    - python-chai
+    - python-simplejson
+    - python-regex
+    - python-pymeeus
+    - python-bleach
+    - python-translationstring
+    - python-colander
+    - python-zope-event
+    - python-zope-testing
+    - python-pyasn1
+    - python-zmq
+    - python-stomper
+    - python-lockfile
+    - python-websocket-client
+    - python-pysocks
+    - python-daemon
+    - brotli
+    - python-multidict
+    - python-bugzilla
+    - python-simplemediawiki
+    - python-smmap
+    - python-cccolutils
+    - python-openidc-client
+    # - python-rpmfluff  # not blocking
+    - python-isort
+    - file # python3-magic
+    - python-tox
+    - python-filelock
+    - python-elementpath:
+        macros:
+          _without_tests: 1
+    - python-distro
+    - python-tempita
+    - python-paste-deploy
+    - python-plaster
+    - python-repoze-lru
+    # - python-nose-exclude # dead in fedora 37
+    - python-venusian
+    - python-soupsieve:
+        macros:
+          _without_tests: 1
+    - python-beautifulsoup4
+    # - python-soupsieve  # not blocking
+    - python-cssselect
+    - python-WSGIProxy2
+    - python-raven
+    - python-towncrier:
+        macros:
+          _without_tests: 1
+    - python-genty
+    - python-flaky
+    # - python3-pytest-asyncio: # dead in fedora 37
+    #    macros:
+    #      _without_tests: 1
+    - python-pytest-mock
+    - python-factory-boy
+    - python-text-unidecode
+    - python-faker
+    # - numpy  # not blocking until very later (except for cython that we skip)
+    - python-pytest-randomly
+    - python-toml
+    - python-psycopg2
+    - dbus-python
+    - python-qt5 # speed things up by building both pyqts at the same time
+    - PyQt4
+    # - python-sphinx-testing # dead in fedora 37
+    - python-sphinx-removed-in
+    - python-pillow
+    - dnf
+    - dnf-plugins-core
+    - libxml2
+    - itstool
+    - glade
+    - python-requests-kerberos
+    - python-tzlocal
+    - python-ephem #disabled failing test https://pastebin.com/BeC5mFbh
+    - python-convertdate
+    - python-dateparser
+    - python-arrow
+    - python-zope-interface
+    - python-service-identity
+    - python-enchant
+
+    - python-zope-component
+    - python-zope-i18nmessageid
+    - python-zope-deprecation
+    # - python-pytest-capturelog # dead in fedora 37
+    - python-scripttest
+    - python-setuptools_git
+    - python-sphinx-epytext
+    - python-dulwich
+    # - python-fastimport # dead in fedora 37
+    - python-certifi
+    - python-spec
+    - python-lexicon
+    - python-should_dsl
+    - python-fluidity-sm
+    - python-pynacl
+    - python-flit:
+        macros:
+         _without_tests: 1
+    - python-sphinx-inline-tabs
+    - breezy  # only blocks pip
+    - python-patiencediff
+    - python-paramiko
+    # - python-pip  # testfull rebuild, wait for breezy, not blocking
+    # - python-sqlalchemy  # xdist enabled tests, no need to build, just clean-up
+    - python-path
+    - python-termcolor
+    - python-pytest-shutil
+    - python-openstackdocstheme
+    - python-zope-exceptions
+    - python-zope-schema
+    - python-zope-configuration
+
+    - python-mccabe
+    - python-pycodestyle
+    - python-gitdb
+    - GitPython
+    - python3-typed_ast
+    - python-astroid
+    - python-extras
+    - python-httpbin
+    - python-pytest-httpbin
+    - python-ldap
+    - rpmconf
+
+    - python-pyrsistent
+    - python-feedgen
+    # - python-argh # dead in fedora 37
+    - python-transaction
+    - python-sphinxcontrib-log-cabinet
+    # - python-jinja2  # not blocking
+    - pyxdg
+    - libreport
+    - python-meh
+    - anaconda
+    - koji
+    - dnf-plugins-extras
+    - python-simpleline
+    - abrt
+    - python-paste
+    - python-plaster-pastedeploy
+    - rpmlint
+    - createrepo_c
+
+    - pyflakes # rm pyflakes/test/test_api.py in prep
+    - python-flake8
+    - python-pytest-flake8
+    - python-httplib2
+    - python-typing-extensions
+    - python-yarl # disabled failing test https://pastebin.com/5ivfgsXz
+    - python-hupper
+    - subunit
+    - python-testrepository
+    - python-stevedore
+
+    - python-hyperlink
+    - python-hamcrest
+    - python-hpack
+    - python-mistune
+    - python-m2r
+
+    - python-sphinxcontrib-apidoc
+    # - python-pbr  # not blocking
+
+    - python-jmespath
+    - python-botocore
+    - python-s3transfer
+    - python-boto3
+    - python-async-timeout:
+        macros:
+          _without_tests: 1
+    - python-aiohttp
+    - python-monotonic
+    - python-betamax
+    - python-async-generator
+    - python-outcome
+    - python-curio
+    - python-sniffio
+    - python-greenlet
+    - python-dogpile-cache # removed failing tests https://pastebin.com/ziMPgSPv
+    - python-requests-toolbelt # removed failing tests https://pastebin.com/c6UtQFnP
+    - python-trustme
+    - python-trio:
+        macros:
+          _without_tests: 1
+    - python-dns # without tests
+    - python-eventlet # without tests, docs
+    - python-httpretty
+    - python-boto
+    - python-mypy_extensions
+    - python3-mypy
+    - python-rsa
+    - python-rfc3986
+    - python-h11
+    - python-httpx
+    - python-httpcore
+    # - python-contextlib2 # dead in fedora 36
+    - python-vcrpy
+
+    - python-constantly
+    - python-hyperframe
+    - python-h2
+    - python-priority  # test_period_of_repetition flaky in copr (timeouts)
+    - python-graphviz
+    - python-Automat:
+        macros:
+          _without_tests: 1
+    - python-munch
+    - python-productmd
+    - python-multilib
+    - python-kitchen
+    - lorax
+    - python3-py3dns
+    - python-pylibravatar
+    - python-pyroute2
+    - python-templated-dictionary
+    - mock
+    - python-responses
+    - python-alembic
+    - python-defusedxml
+    - python-pytest-fixture-config
+    - python-pytest-virtualenv
+    - python-jaraco-packaging
+    - python-pathspec
+    - python-rst-linker
+    - python-jaraco-envs
+    - python-twisted
+    - python-towncrier  # testfull rebuild, untested here
+    - python-Automat  # testfull rebuild
+    - python-pygments-pytest:  # tests were disabled during 3.9 bootstrap (pygments-ansi-color missing)
+        macros:
+          _without_tests: 1
+    # - python-attrs  # testfull rebuild, not blocking, disabled failing tests
+    - python-invoke:
+        macros:
+          _without_tests: 1
+    # - pytest # testfull rebuild #skipped, blocked by https://bugzilla.redhat.com/show_bug.cgi?id=1948522
+    - kernel-tools  # python3-perf
+    - python-jsonschema  # testfull, not checked here
+    - python-txzmq
+    - python-txws
+    - python-beanbag
+    - pdc-client
+    - python-gevent
+    - libgit2-glib
+    - python-testpath
+    - python-requests-download
+    - python-entrypoints
+    - python-flit  # testfull
+    - python-jaraco-path
+    - python-setuptools  # testfull rebuild
+    - python-urllib3  # testfull rebuild
+
+    - python-simplegeneric
+    # - python-wcwidth  # not blocking
+    - python-prompt-toolkit
+    - python-ipython_genutils
+    - python-traitlets
+    - python-pickleshare
+    - python-backcall
+    - python-genty
+    - python-cycler
+    - python-pymongo
+    - python-fastjsonschema
+    - python-sphinxcontrib-github-alt
+    - python-jupyter-core
+    - python-nbformat
+    - python-pandocfilters
+    - python-orderedset
+    - python-prometheus_client
+    - python-send2trash
+    - future
+    - python-terminado
+    - python-latexcodec
+    - python-case
+    - python-pybtex
+    - python-pybtex-docutils
+    - python-cppy
+    - python-kiwisolver
+    - python-PyPDF2
+    - waf
+    - python-sphinxcontrib-bibtex
+    - python-scour
+    - python-pytest-rerunfailures
+    # - python-readthedocs-sphinx-ext # dead in fedora 37
+    # - python-sphinx_rtd_theme  # testfull, not blocking
+    - python-jupyter-client:
+        macros:
+          _without_doc: 1
+          _without_tests: 1
+    # - sip5 # dead in fedora 37
+    - python-wxpython4
+    - python-matplotlib:
+        macros:
+          _without_check: 1
+    - ipython:
+        macros:
+          _without_doc: 1
+          _without_check: 1
+    - python-matplotlib-inline
+    - python-sphinx-copybutton
+    - python-ipykernel:
+        macros:
+          _without_intersphinx: 1
+    - python-pandas
+    # CONTINUE HERE
+    - pybind11:
+        macros:
+          _without_tests: 1
+    - scipy #skipped
+    - python-sphinx-gallery
+    - python-nbsphinx #skipped
+    - python-nbclient:
+        macros:
+          _without_check: 1
+    - python-nbconvert:
+        macros:
+          _without_doc: 1
+    # - python-matplotlib #skipped
+    # - python-pikepdf #skipped
+    # - python-notebook #skipped
+    - python-nbclient
+    # - python-nbconvert  # not blocking #skipped
+    # - ipython  # docsfull, testfull #skipped
+    # - python-jupyter-client  # docsfull, testfull #skipped
+
+
+    - python-webob
+    - python-pyquery:
+        macros:
+          _without_tests: 1
+    - python-webtest
+    - python-pyquery  # testfull rebuild after webtest
+    - python-pyramid
+    - python-cornice
+    - python-cornice-sphinx
+    # - python3-pytest-asyncio: # dead in fedora 37
+    - python-asgiref
+    - kobo
+    - python-moksha-common
+    - python-moksha-hub
+    - python-pyramid-mako
+    - pydot
+    - python-sqlalchemy_schemadisplay
+    - python-pika
+    - python-crochet
+    - fedora-messaging
+    - python-pycdlib
+    - python-keyring
+    - poetry
+    - python-dict-sorted
+    - python-smartcols
+    - python-pytest-aiohttp
+    # - python-async-timeout  # not blocking
+    - python-click-completion
+    - python-shellingham
+    - libmodulemd
+    - python-gssapi
+    - python-requests-gssapi
+    # - rpkg #skipped
+    # - python-django #skipped
+    # - python3-openid #skipped
+    # - python-openid-cla #skipped
+    # - python-openid-teams #skipped
+    # - python-pyramid-fas-openid #skipped
+    # - python-fedora #skipped
+    # - fedmsg #skipped
+    # - pungi #skipped
+    - python-cherrypy
+    - python-zc-lockfile
+    - python-setuptools_scm_git_archive
+    - python-jaraco-classes
+    - python-jaraco-functools
+    - python-tempora
+    - python-portend
+    - python-cachy
+    - python-cleo
+    - python-clikit
+    - python-pkginfo
+    - python-tomlkit
+    - python-cheroot
+    - python-CacheControl
+    - python-jeepney
+    - python-SecretStorage
+    - python-pastel
+    - python-backoff
+    # - cloud-init  # not blocking #skipped
+    # - libsolv #skipped
+    # - fedmod #skipped
+
+    - python-vine
+    - python-case
+    - python-amqp
+    # - python-nose-cover3 # dead in fedora 37
+    - python-billiard
+    - python-kombu
+    - python-msgpack
+    - python-celery
+    # - bodhi #skipped
+    # - fedpkg  # not blocking #skipped
+
+    # this can run sooner
+    # - gdb  # not blocking
+    # - openmpi #skipped - failure not related with Python 3.10
+    # - mpich #skipped
+    - python-dill
+    # - mpi4py #skipped
+    # - vtk #skipped
+    # - boost  # not blocking #skipped
+
+    # - python-requests  # testfull, not blocking
+    - python-numexpr
+    - librepo # testfull rebuild
+    # - python-tables #skipped
+    # - python-numpydoc #skipped
+    # - pybind11 # testfull, not blocking #skipped
+    # - python-sortedcontainers  # testfull, not blocking #skipped
+    # - python-Bottleneck #skipped
+    - python-sphinx-hoverxref
+    # - python-hypothesis  # testfull, not blocking #skipped
+
+    - linkchecker
+    - python3-docs #(updated!)
+    # - python-ipykernel #skipped
+    - python-testtools
+
+    # additional bootstrap loops (isolated):
+
+    #TODO: freeipa-healthcheck bootstrap loop
+    #https://src.fedoraproject.org/rpms/pki-core/pull-request/9
+    #https://src.fedoraproject.org/rpms/freeipa-healthcheck/pull-request/2
+    #TODO: python-nbclient bootstrap
+    #https://src.fedoraproject.org/rpms/python-nbclient/pull-request/1
+    - python-zbase32:
+        macros:
+          _with_bootstrap: 1
+    - python-Traits:
+        macros:
+          _with_bootstrap: 1
+    - pyutil
+    - python-zbase32
+
+    - python-lit:
+        macros:
+          _without_check: 1
+    - python-lit
+    - clang
+
+    - python-pcodedmp:
+        macros:
+          _with_bootstrap: 1
+    - python-oletools
+    - python-pcodedmp
+
+    - ara:
+        replaced_macros:
+          with_docs: 0
+    - ara
+
+    - python-libcst: # https://src.fedoraproject.org/rpms/python-libcst/pull-request/1
+        macros:
+          _without_tests: 1
+    - python-hypothesmith
+    - python-libcst
+
+    - python-pyface:
+        macros:
+          _without_tests: 1
+
+    - python-werkzeug #with tests
+    - python-sphinxcontrib-websupport #with tests
+    - python-trio #with tests
+    - python-dns #with tests
+    - python-eventlet #with tests
+
+    #TODO:
+    - python-molecule:
+        replaced_macros:
+          with_docs: 0
+    - python-elementpath:
+        macros:
+          _without_tests: 1
+    - python-xmlschema
+    - python-elementpath
+    - pytest
