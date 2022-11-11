@@ -1,0 +1,56 @@
+From b1e16c3deac530d4db8df11606abf138be976d93 Mon Sep 17 00:00:00 2001
+From: Liu Yang <yanliu@redhat.com>
+Date: Fri, 11 Nov 2022 12:28:52 +0800
+Subject: [PATCH] Add swith to disable tests and its dependency.
+
+---
+ python-typing-extensions.spec | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/python-typing-extensions.spec b/python-typing-extensions.spec
+index 1dbaf8e..fbee8ad 100644
+--- a/python-typing-extensions.spec
++++ b/python-typing-extensions.spec
+@@ -1,3 +1,5 @@
++%bcond_without bootstrap
++
+ Name:      python-typing-extensions
+ Version:   4.2.0
+ Release:   5%{?dist}
+@@ -10,8 +12,10 @@ Source0:   %{pypi_source typing_extensions}
+ BuildArch: noarch
+ 
+ BuildRequires: python3-devel
++%if %{without bootstrap}
+ BuildRequires: python3-test
+ BuildRequires: python3-pytest
++%endif
+ 
+ 
+ %global _description %{expand:
+@@ -51,8 +55,10 @@ Summary:       %{summary}
+ %prep
+ %autosetup -n typing_extensions-%{version}
+ 
++%if %{without bootstrap}
+ %generate_buildrequires
+ %pyproject_buildrequires
++%endif
+ 
+ 
+ %build
+@@ -66,7 +72,11 @@ Summary:       %{summary}
+ 
+ 
+ %check
++%if %{without bootstrap}
+ %pytest
++%else
++:
++%endif
+ 
+ %files -n python3-typing-extensions -f %{pyproject_files}
+ %license LICENSE
+-- 
+2.37.3
+
