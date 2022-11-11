@@ -1,0 +1,43 @@
+From acbaa0ca85769f5a53d954836e97dac27b7eb796 Mon Sep 17 00:00:00 2001
+From: Liu Yang <yanliu@redhat.com>
+Date: Thu, 10 Nov 2022 21:15:10 +0800
+Subject: [PATCH] Add riscv64 support.
+
+---
+ gdb.spec | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/gdb.spec b/gdb.spec
+index 50a583d..858ae09 100644
+--- a/gdb.spec
++++ b/gdb.spec
+@@ -100,7 +100,7 @@ Summary: A GNU source-level debugger for C, C++, Fortran, Go and other languages
+ Obsoletes: gdb64 < 5.3.91
+ %endif
+ 
+-%ifarch %{arm}
++%ifarch %{arm} riscv64
+ %global have_inproctrace 0
+ %else
+ %global have_inproctrace 1
+@@ -639,7 +639,7 @@ export PKG_CONFIG_PATH=%{_libdir}/pkgconfig
+ %ifarch sparc sparcv9
+ 	sparc-%{_vendor}-%{_target_os}%{?_gnu}
+ %else
+-	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu	\
++	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu,riscv64-linux-gnu	\
+ 	%{_target_platform}
+ %endif
+ 
+@@ -744,7 +744,7 @@ $(: ppc64 host build crashes on ppc variant of libexpat.so )	\
+ %ifarch sparc sparcv9
+ 	sparc-%{_vendor}-%{_target_os}%{?_gnu}
+ %else
+-	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu	\
++	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu,riscv64-linux-gnu	\
+ 	%{_target_platform}
+ %endif
+ 
+-- 
+2.37.3
+
