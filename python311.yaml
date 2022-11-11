@@ -8,19 +8,19 @@ python311:
           _without_rpmwheels: 1
           _without_tests: 1
           _without_optimizations: 1
-    # - gdb: # not blocking
-        # macros:
-        #  _without_python: 1
+    - gdb: # not blocking
+        macros:
+          _without_python: 1
     - python-setuptools: # bump release
         macros:
           _with_bootstrap: 1
           _without_tests: 1
-          _without_main_python: 1
-    - python-railroad-diagrams
+    - python-attrs:
+        macros:
+          _without_tests: 1
     - pyparsing: # bump release
         macros:
           _with_bootstrap: 1
-          build_wheel: 1
     - python-packaging: # bump release
         macros:
           _with_bootstrap: 1
@@ -33,6 +33,12 @@ python311:
         macros:
           _without_tests: 1
           _without_doc: 1
+    - pyproject-rpm-macros:
+        macros:
+          _without_tests: 1
+    - python-toml:
+          macros:
+            _without_tests: 1
     - python-setuptools:
         macros:
           _without_tests: 1
@@ -52,6 +58,15 @@ python311:
         macros:
           _without_tests: 1
     - python-toml:
+        macros:
+          _without_tests: 1
+    - python-tomli:
+        macros:
+          _with_bootstrap: 1
+    - python-flit:
+        macros:
+          _with_bootstrap: 1
+    - python-typing-extensions: # patched amanwkah
         macros:
           _without_tests: 1
     - python-setuptools_scm:
